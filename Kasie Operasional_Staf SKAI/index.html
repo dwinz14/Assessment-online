@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CBT Online - Ujian</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-title">ASSESSENT KARYAWAN</div>
+          <div class="brand-sub">Test Online</div>
+        </div>
+        <div id="headerTimer" class="timer-pill" aria-live="polite">--:--</div>
+        <div class="brand-sub">PT. BPR ARTHA PAMENANG</div>
+      </div>
+    </header>
+
+    <main class="main-wrap">
+      <!-- LANDING CARD -->
+      <section id="landing" class="card landing-card">
+        <h1 class="title">Informasi Ujian</h1>
+        <p class="desc">Selamat datang di Assessment Online PT. BPR ARTHA PAMENANG. Baca aturan ujian sebelum memulai. Setelah menekan <strong>Mulai Test</strong>, waktu test akan langsung berjalan.</p>
+
+        <div class="meta">
+          <div class="meta-item"><strong id="metaDur">60</strong> menit</div>
+          <div class="meta-item">Tambahan <strong id="metaGrace">1</strong> menit</div>
+          <div class="meta-item">Soal: Kasie Operasional & Staf SKAI</div>
+        </div>
+
+        <div class="cta-row">
+          <button id="btnStart" class="btn primary">Mulai Test</button>
+        </div>
+
+        <div class="rules">
+          <h3>Aturan Test Online</h3>
+          <ol>
+            <li>Test dan Waktu berjalan setelah klik "Mulai Tes".</li>
+            <li>Pastikan tekan <strong>Kirim</strong> form jawaban sebelum waktu habis.</li>
+            <li>Apabila belum <strong>Kirim</strong> form jawaban sebelum waktu habis, maka akan dianggap tidak mengerjakan.</li>
+            <li>Waktu tambahan digunakan untuk melihat skor .</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- TEST CARD -->
+      <section id="testArea" class="card test-card" style="display: none">
+        <div class="test-top">
+          <div class="test-title">Waktu Test</div>
+          <div id="timerWrap" class="timer-wrap">
+            <div id="progressBar" class="progress-bar"><div id="progressFill"></div></div>
+            <div id="timerVisual" class="timer-pill timer-normal">--:--</div>
+          </div>
+        </div>
+
+        <div id="formContainer" class="form-container">
+          <!-- iframe akan di-inject lewat JS -->
+        </div>
+
+        <div id="finishedCard" class="finished-card" style="display: none">
+          <h2>✅ Assesment Online Sudah Selesai</h2>
+          <p class="muted">Waktu pengerjaan dan waktu tambahan telah berakhir. Jika belum menekan tombol <strong>Kirim</strong>, jawaban tidak tersimpan dan dianggap tidak mengerjakan.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true" style="display: none">
+      <div class="modal">
+        <h3 id="modalTitle">Waktu Habis</h3>
+        <p id="modalMsg">Waktu utama sudah habis. Silakan segera kirim jawaban dalam waktu tambahan.</p>
+        <div class="modal-actions">
+          <button id="modalOk" class="btn primary">OK</button>
+        </div>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2025 Team IT PT. BPR ARTHA PAMENANG</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
