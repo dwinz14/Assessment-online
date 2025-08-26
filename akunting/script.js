@@ -1,8 +1,7 @@
 // Konfigurasi
 const UJIAN_MENIT = 45; // durasi utama (menit)
 const TAMBAHAN_MENIT = 1; // grace period (menit)
-const GOOGLE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfA0gvh9Z7vQm1feCU1ezBp6nLI5n6eggW_txCB209mJMGGFQ/viewform?embedded=true"; // GANTI INI
-/* ============================ */
+const GOOGLE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfA0gvh9Z7vQm1feCU1ezBp6nLI5n6eggW_txCB209mJMGGFQ/viewform?usp=header";
 
 /* ELEMENTS */
 const landing = document.getElementById("landing");
@@ -19,6 +18,12 @@ const modalBackdrop = document.getElementById("modalBackdrop");
 const modalOk = document.getElementById("modalOk");
 const modalTitle = document.getElementById("modalTitle");
 const modalMsg = document.getElementById("modalMsg");
+
+// Back button warning modal elements
+const backModalBackdrop = document.getElementById("backModalBackdrop");
+const backModalOk = document.getElementById("backModalOk");
+const backModalTitle = document.getElementById("backModalTitle");
+const backModalMsg = document.getElementById("backModalMsg");
 
 document.getElementById("metaDur").textContent = UJIAN_MENIT;
 document.getElementById("metaGrace").textContent = TAMBAHAN_MENIT;
@@ -57,8 +62,19 @@ function setStatusInUrl(status) {
 
 /* Prevent back navigation from test page */
 function lockBackNavigation() {
+  // Clear browser history and push multiple states
+  history.replaceState(null, "", window.location.href);
+  for (let i = 0; i < 50; i++) {
+    history.pushState({ page: "test", lock: i }, "", window.location.href);
+  }
+
   history.pushState({ page: "test" }, "", window.location.href);
   window.addEventListener("popstate", (e) => {
+    // Completely prevent back navigation during test
+    e.preventDefault();
+    // Show warning modal when back button is pressed
+    showBackModal();
+    // Keep user on current page by pushing state again
     history.pushState({ page: "test" }, "", window.location.href);
   });
 }
@@ -73,6 +89,16 @@ function showModal(title, msg) {
 function hideModal() {
   modalBackdrop.style.display = "none";
   modalBackdrop.setAttribute("aria-hidden", "true");
+}
+
+/* Back button warning modal show/hide */
+function showBackModal() {
+  backModalBackdrop.style.display = "flex";
+  backModalBackdrop.setAttribute("aria-hidden", "false");
+}
+function hideBackModal() {
+  backModalBackdrop.style.display = "none";
+  backModalBackdrop.setAttribute("aria-hidden", "true");
 }
 
 /* Inject form iframe */
@@ -182,6 +208,7 @@ function startTestFlow() {
   // wire buttons
   btnStart.addEventListener("click", startTestFlow);
   modalOk.addEventListener("click", hideModal);
+  backModalOk.addEventListener("click", hideBackModal); // Ensure this line is added only once
 
   // If the page already has start param -> go straight to test view
   const startTs = getStartFromUrl();
