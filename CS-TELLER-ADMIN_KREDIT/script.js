@@ -1,5 +1,5 @@
 // Konfigurasi
-const UJIAN_MENIT = 35; // durasi utama (menit)
+const UJIAN_MENIT = 50; // durasi utama (menit)
 const TAMBAHAN_MENIT = 1; // grace period (menit)
 const GOOGLE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLScD7WReEEpZ6IcMSybvd3SaJbs_fKzX01t_3VHP3DDkFUjRYg/viewform?usp=header"; // GANTI INI
 /* ============================ */
